@@ -10,14 +10,15 @@ class DownloadQueue
     @elements = []
   end
   def add(url)
-    puts("Adding #{url}")
+    #puts(url)
+    #puts("Adding #{url}")
     @elements << Thread.new do
       Net::HTTP.get(URI(url))
     end
     @elements.length-1
   end
   def query(id)
-    puts("Querying id #{id}")
+    #puts("Querying id #{id}")
     i = id.to_i
     status = @elements[i].status
     if status == false #specifically not nil too.
@@ -34,15 +35,16 @@ if ARGV.length < 1
 end
 if ARGV[0] == "start"
   #start our daemon
-  puts("Making new server")
+  #puts("Making new server")
   server = TCPServer.new(12345)
   begin
     queue = DownloadQueue.new()
     loop do
       client = server.accept()
       begin
-        puts("Request received")
+        #puts("Request received")
         request = client.gets().chomp()
+        #puts(request)
         case request
           when "kill"
             break
@@ -82,7 +84,7 @@ else
       else
         #download a URL
         socket.puts("download")
-        socket.puts(ARGV[1])
+        socket.puts(ARGV[0])
         id = socket.gets()
         puts(id)
     end
