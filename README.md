@@ -37,6 +37,7 @@ If you want to do everything manually, you can
 2. Connect to port 12345 with your favorite utility (nc perhaps).
 3. Send off a request like "POST _URL_" to get it downloading a URL.
 4. Send off another request like "GET _ID_" or "GET *" to check your status or get downloads.
+(You can even stick a little "HTTP/version" at the end of your request too if that's what you like.)
 5. And finally send off a "POST kill" to finally kill your download server.
  
 
