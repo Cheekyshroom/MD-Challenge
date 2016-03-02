@@ -80,13 +80,14 @@ class Server
       endOfRequest = string.index(' ')
       #make sure that the request is at least two words so substringing won't break
       if endOfRequest == nil
-        puts("INVALID REQUEST '#{string}'")
-        client.puts("INVALID REQUEST '#{string}'")
+        #puts("INVALID REQUEST '#{string}'")
+        #client.puts("INVALID REQUEST '#{string}'")
         return true
       end
       #split our string into a GET/POST and an argument
       request = string[0..endOfRequest-1]
-      rest = string[endOfRequest+1..string.length]
+      endOfRest = string.index(' ', endOfRequest+1)
+      rest = string[endOfRequest+1..(endOfRest or string.length)]
       case request
         when "GET" #GETS only query or list
           #if they query a wildcard, give them a list of downloads back
@@ -113,7 +114,7 @@ class Server
           i = @queue.add(uri)
           client.puts(i)
         else
-          puts("INVALID REQUEST '#{string}' '#{request}' '#{rest}'")
+          #puts("INVALID REQUEST '#{string}' '#{request}' '#{rest}'")
       end
     ensure
       client.close
